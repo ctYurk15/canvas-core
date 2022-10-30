@@ -1,22 +1,25 @@
-/*import _ from 'lodash';
-
-function component() {
-  const element = document.createElement('div');
-
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(['Canvas', '-', 'core'], ' ');
-
-  return element;
-}
-
-document.body.appendChild(component());*/
-
 import {Engine} from './Engine';
+import {getRandomInt} from './functions';
+import {Rectangle} from './gameobjects/Rectangle';
+import {} from './game-config';
+
+let animation_id = null;
 
 //configuring canvas
 const canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-//const engine = new Engine(canvas, 'blue');
-console.log(new Engine(canvas, 'blue'));
+const engine = new Engine(canvas);
+const rect1 = new Rectangle(getRandomInt(100, 150), getRandomInt(100, 150), getRandomInt(50, 150), getRandomInt(50, 150), 'blue');
+
+engine.addObject(rect1);
+engine.start();
+
+function animate()
+{
+    animation_id = requestAnimationFrame(animate);
+    engine.render();
+}
+
+animate();

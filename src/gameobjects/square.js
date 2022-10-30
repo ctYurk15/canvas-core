@@ -1,3 +1,5 @@
+import {Rectangle} from './Rectangle';
+
 export class Square extends Rectangle
 {
     selected = false;

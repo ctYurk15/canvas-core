@@ -1,3 +1,5 @@
+import {GameObject} from './Gameobject';
+
 export class Circle extends GameObject
 {
     constructor(x, y, radius, color)

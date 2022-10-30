@@ -9,10 +9,10 @@ export class Engine
     paused = false;
     next_id = 1;
 
-    constructor(canvas, background)
+    constructor(canvas, background = null)
     {
         this.canvas = canvas;
-        this.background = background;
+        this.background = background == null ? 'aqua' : background;
         this.context = canvas.getContext('2d');
 
         this.registerEvents();

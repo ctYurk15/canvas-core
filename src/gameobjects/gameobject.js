@@ -1,3 +1,5 @@
+import {Point} from './Point';
+
 export class GameObject extends Point
 {
     id = 0;

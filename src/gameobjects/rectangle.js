@@ -1,3 +1,5 @@
+import {GameObject} from './Gameobject';
+
 export class Rectangle extends GameObject
 {
     constructor(x, y, width, height, color)
