@@ -6,6 +6,8 @@ import {} from './game-config';
 
 let animation_id = null;
 
+const fps_counter = document.querySelector("#fpsSpan");
+
 const initializer = new Initializer();
 const canvas = initializer.initializeCanvas();
 
@@ -19,6 +21,7 @@ function animate()
 {
     animation_id = requestAnimationFrame(animate);
     engine.render();
+    if(engine.last_deltaTime != 0) fps_counter.innerHTML = 'FPS: '+1/engine.last_deltaTime;
 }
 
 animate();

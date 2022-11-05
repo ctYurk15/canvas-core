@@ -5,9 +5,14 @@ export class Engine
     button_actions = [];
     release_button_actions = [];
     frame_actions = [];
+
     is_working = false;
     paused = false;
     next_id = 1;
+
+    frames_count = 0;
+    frames_calculator_interval = null;
+    last_deltaTime = 0;
 
     constructor(canvas, background = null)
     {
@@ -16,6 +21,13 @@ export class Engine
         this.context = canvas.getContext('2d');
 
         this.registerEvents();
+
+        //Time.deltaTime calculation
+        const self = this;
+        this.frames_calculator_interval = setInterval(function(){
+            self.last_deltaTime = 1 / self.frames_count;
+            self.frames_count = 0;
+        }, 1000);
     }
 
     registerEvents()
@@ -77,6 +89,8 @@ export class Engine
             this.frame_actions.forEach(function(frame_action){
                 frame_action();
             });
+
+            this.frames_count++;
         }
     }
 
