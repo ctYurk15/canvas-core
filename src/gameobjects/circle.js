@@ -11,7 +11,7 @@ export class Circle extends GameObject
 
     draw(canvas_context)
     {
-        canvas_context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        canvas_context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false);
         canvas_context.fillStyle = this.color;
     }
 }

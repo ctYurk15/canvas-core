@@ -13,12 +13,12 @@ export class Square extends Rectangle
 
     render(canvas_context)
     {
-        this.sprite.draw(canvas_context, this.x, this.y, this.width, this.width);
+        this.sprite.draw(canvas_context, this.position.x, this.position.y, this.width, this.width);
 
         if(this.selected)
         {
             canvas_context.beginPath();
-            canvas_context.rect(this.x, this.y, this.width, this.width);
+            canvas_context.rect(this.position.x, this.position.y, this.width, this.width);
             canvas_context.fillStyle = 'rgba(10, 10, 10, 0.5)';
             canvas_context.fill();
         }

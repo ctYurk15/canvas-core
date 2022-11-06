@@ -203,7 +203,7 @@ export class Engine
         this.game_objects.forEach(function(game_object){
             let movement = game_object.paralax_force * speed;
 
-            game_object.x += movement;
+            game_object.position.x += movement;
             game_object.paralax_scroll += movement;
         });
     }
