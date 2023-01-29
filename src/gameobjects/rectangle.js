@@ -1,4 +1,5 @@
 import {GameObject} from './Gameobject';
+import {Point} from './Point';
 
 export class Rectangle extends GameObject
 {
@@ -16,6 +17,7 @@ export class Rectangle extends GameObject
         canvas_context.fillStyle = this.color;
     }
 
+    //check, if this rectangle is collided with another rectangle
     rectangleCollided(object)
     {
         if(this.position.x + this.width >= object.position.x 
@@ -26,6 +28,7 @@ export class Rectangle extends GameObject
         return false;
     }
 
+    //check, if point is in current rectangle
     pointInRectangle(point_x, point_y)
     {
         if(this.position.x <= point_x 
@@ -37,6 +40,7 @@ export class Rectangle extends GameObject
         return false;
     }
 
+    //get center of the rectangle
     centerCoordinates()
     {
         let x = 0;

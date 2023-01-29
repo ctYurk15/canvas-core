@@ -2,7 +2,6 @@ import {Point} from './Point';
 
 export class GameObject
 {
-
     position = null;
 
     id = 0;
@@ -12,7 +11,7 @@ export class GameObject
 
     constructor(x, y)
     {
-        //super(x, y);
+        //position stored in Point
         this.position = new Point(x, y);
     }
 
@@ -21,6 +20,7 @@ export class GameObject
         // ...
     }
 
+    //executed each frame by engine
     render(canvas_context)
     {
         canvas_context.beginPath();
@@ -28,6 +28,7 @@ export class GameObject
         canvas_context.fill();
     }
 
+    //action executed, when object is deleted from engine
     onDelete(event_name)
     {
 

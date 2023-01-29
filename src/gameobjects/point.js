@@ -6,12 +6,14 @@ export class Point
         this.y = y;
     }
     
+    //get distance between this & other Points
     distanceFrom(point)
     {
         const square_dist = Math.pow((point.x - this.x), 2) + Math.pow((point.y - this.y), 2);
         return Math.pow(square_dist, 0.5);
     }
 
+    //check if current point is in points array
     inPointsArray(points_array)
     {
         let result = false;

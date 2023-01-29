@@ -14,6 +14,8 @@ export class Engine
     frames_calculator_interval = null;
     last_deltaTime = 0;
 
+    //canvas - DOM <canvas>
+    //background - color(string) or Sprite
     constructor(canvas, background = null)
     {
         this.canvas = canvas;
@@ -22,7 +24,7 @@ export class Engine
 
         this.registerEvents();
 
-        //Time.deltaTime calculation
+        //Time.deltaTime calculation. Means how much time it takes to render one frame
         const self = this;
         this.frames_calculator_interval = setInterval(function(){
             self.last_deltaTime = 1 / self.frames_count;
@@ -30,6 +32,7 @@ export class Engine
         }, 1000);
     }
 
+    //register UI events
     registerEvents()
     {
         this.checkButtonsPress();
@@ -46,6 +49,7 @@ export class Engine
         this.is_working = false;
     }
 
+    //for game-pause. PauseElement should be DOM-object
     togglePause(pause_element)
     {
         this.paused = !this.paused;
@@ -53,47 +57,56 @@ export class Engine
         else pause_element.classList.add('hidden');
     }
 
+    //force pause to stop. PauseElement should be DOM-object
     stopPause(pause_element)
     {
         this.paused = false;
         pause_element.classList.add('hidden');
     }
 
+    //trigger press & release events for Keyboard buttons
     addButtonPressEvent(button, action)
     {
         this.button_actions.push({code: button, action: action});
     }
-
     addButtonReleaseEvent(button, action)
     {
         this.release_button_actions.push({code: button, action: action});
     }
 
+    //add action, which should be executed each frame
     addFrameAction(action)
     {
         this.frame_actions.push(action);
     }
 
+    //executed each frame
     render()
     {
         if(this.is_working && !this.paused)
         {
+            //clear canvas
             this.clear();
 
+            //get canvas-context
             const context = this.context;
 
+            //render game-objects
             this.game_objects.forEach(function(game_object){
                 game_object.render(context);
             });
 
+            //execute all frame-actions
             this.frame_actions.forEach(function(frame_action){
                 frame_action();
             });
 
+            //for last_deltaTime
             this.frames_count++;
         }
     }
 
+    //clear canvas to draw again
     clear()
     {
         switch(this.background.constructor.name)
@@ -108,6 +121,8 @@ export class Engine
         }
     }
 
+    //add object to engine 
+    //game_object - GameObject
     addObject(game_object)
     {
         game_object.id = this.next_id;
@@ -116,14 +131,23 @@ export class Engine
         return game_object.id;
     }
 
+    //delete object from engine by its id;
+    //object_id - id
     deleteObject(object_id)
     {
         this.game_objects = this.game_objects.filter(function(game_object){
-            if(game_object.id == object_id) game_object.onDelete('singleDelete');
+            if(game_object.id == object_id) 
+            {
+                //fire delete event
+                game_object.onDelete('singleDelete');
+            }
+
             return game_object.id != object_id;
         });
     }
 
+    //returns object by its id
+    //object_id - id
     getObjectById(object_id)
     {
         let result = null;
@@ -140,6 +164,8 @@ export class Engine
         return result;
     }
 
+    //get all objects with specific tag
+    //tag - string
     getObjectsByTag(tag = '')
     {
         let result = [];
@@ -155,9 +181,11 @@ export class Engine
         return result;
     }
 
+    //delete all objects
     clearObjects()
     {
         this.game_objects.forEach(function(object){
+            //fire delete event
             object.onDelete('clearScene');
         });
 
@@ -165,6 +193,8 @@ export class Engine
         this.clear();
     }
 
+    //remove all objects with specific tag
+    //tag - string
     clearObjectsByTag(tag)
     {
         this.game_objects = this.game_objects.filter(function(game_object){
@@ -173,6 +203,7 @@ export class Engine
         });
     }
 
+    //check keyboard buttons
     checkButtonsPress()
     {
         const self = this;
@@ -213,6 +244,8 @@ export class Engine
         }
     }
 
+    //paralax effect for all game-objects
+    //speed - float/int
     paralaxMoveX(speed)
     {
         this.game_objects.forEach(function(game_object){

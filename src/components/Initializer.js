@@ -7,6 +7,7 @@ export class Initializer
         this.canvas_height = canvas_height;
     }
 
+    //add canvas to DOM tree
     initializeCanvas()
     {
         const canvas = document.createElement('canvas');
